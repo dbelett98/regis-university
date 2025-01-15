@@ -1,3 +1,35 @@
+/* using https://piktochart.com/blog/green-color-palette-combinations/ for colors */
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 header {
-    background-color: red;
+    background-color: #826cf6;
+    padding: 10px;
+    text-align: center;
+}
+
+.me {
+    flex: auto;
+    text-align: center;
+    margin: 1rem;
+}
+
+.me p {
+    flex: auto;
+    background-color:  #826cf6;
+}
+/* original picture was way too big */
+img {
+    height: 25%;
+    width: 25%;
+    margin-top: 1rem;
+}
+
+footer {
+    background: #000;
+    padding: 30px 0px;
+    color: white;
+   
 }
