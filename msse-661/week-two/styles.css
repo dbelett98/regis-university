@@ -24,9 +24,75 @@ body {
 
 /* header section */
 header {
-    
+    background-color: #3cb371;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
+header nav {
+    display: flex;
+    justify-content: space-between; /* Nav links on the right */
+    align-items: center;
+    margin-bottom: 2rem; /* Close the gap */
+    width: 100%;
+}
+
+header ul {
+    list-style-type: none;
+    display: flex;
+    gap: 2rem;
+    margin-right: 8rem;
+}
+
+header ul li a {
+    text-decoration: none;
+}
+
+header ul li a, .hero-secondary-text {
+    font-size: 1rem;
+    color: #E5E7EB;
+}
+
+header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 6rem;
+
+}
+
+header .main-heading {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    width: 100%;
+}
+
+.header-content-left {
+    display: flex;
+    background-color: red;
+    gap: 0.5rem;
+    margin-left: 4rem;
+}
+
+.hero-main-text, .hero-secondary-text, header button {
+    text-align: left;
+}
+
+.hero-main-text {
+    line-height: 1.2;
+}
+
+.hero-secondary-text {
+    line-height: 1.2;
+}
+
+.heading-image {
+    background-color: bisque;
+}
 
 
 
