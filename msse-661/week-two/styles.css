@@ -33,16 +33,46 @@ header {
 header h3 {
     margin-left: 10rem;
 }
-/* hero section */
+
+
 .hero-section{
-    background-color: #3cb371;
+    background-color: red;
     color: white;
+    margin: 8rem;
 }
 
+.hero {
+    display: flex;
+    margin: 3rem;
+}
+
+
+
+
+/* quote section */
 .quote-section {
     background-color: #ceebce;
+    padding: 2rem;
+    text-align: center;
 }
 
+.quote-section h5 {
+    font-style: light italic;
+    display: flex;
+    justify-content: right;
+    margin-top: 0.5rem;
+    margin-right: 15rem;
+}
+
+.quote-section p {
+    font-style: italic;
+    display: flex;
+    text-align: justify;
+    margin: auto;
+    width: 60%;
+}
+
+/* action section */
 .action-section {
     background-color: red;
     margin: 2rem;
@@ -53,7 +83,7 @@ header h3 {
 }
 
 
-/* keep footer at the bottom and cover the whole page */
+/* footer section */
 footer {
    background-color: #3cb371; 
    color: white;
