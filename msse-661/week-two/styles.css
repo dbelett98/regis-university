@@ -6,69 +6,6 @@
     box-sizing: border-box;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-
-/* header */
-header {
-    background: #3cb371;
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-}
-
-nav {
-    display: flex;
-}
-
-.header-links {
-    display: flex;
-    width: 50%;
-    gap: 1rem;
-    margin-left: 10rem;
-}
-
-.hero {
-    display: flex;
-    background-color: red;
-    margin-top: 4rem;
-}
-
-
-/* quote section */
-.quote-section {
-    background-color: #ceebce;
-    padding: 2rem;
-    text-align: center;
-}
-
-.quote-section h5 {
-    font-style: italic;
-    margin-top: 0.5rem;
-    text-align: right;
-}
-
-.quote-section p {
-    font-style: italic;
-    margin: auto;
-    width: 60%;
-}
-
-/* action section */
-.action-section {
-    background-color: red;
-    margin: 2rem;
-    padding: 1rem;
-}
-
-.action {
-    background-color: #3cb371;
-}
 
 /* footer section */
 footer {
