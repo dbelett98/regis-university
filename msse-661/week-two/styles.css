@@ -1,53 +1,56 @@
-/* putting everything close to each other + font type */
+/* Reset and font family */
 * {
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
 }
 
-main {
-    flex: 1;
-}
-
-
-/* header section */
 header {
-    background-color: #3cb371;
+    background: #3cb371;
     color: white;
     display: flex;
-    width: 100%;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+header h3 {
+    margin: 0;
 }
 
 .header-links {
     display: flex;
-    justify-content: end;
-    width: 50%;
+    gap: 1rem;
 }
 
-.link {
+.link p {
+    margin: 0;
+}
+
+.hero-section {
+    background: red;
     color: white;
-    margin-left: 1rem;
-    
-}
-
-header h3 {
-    margin-left: 10rem;
-}
-
-
-.hero-section{
-    background-color: red;
-    color: white;
-    margin: 8rem;
+    padding: 4rem 2rem;
+    text-align: center;
 }
 
 .hero {
-    display: flex;
-    margin: 3rem;
+    display: inline-block;
 }
 
+.hero p {
+    max-width: 60%;
+    margin: 1rem auto;
+}
 
+button {
+    display: block;
+    margin: 1rem auto;
+}
 
+.image {
+    margin-top: 2rem;
+}
 
 /* quote section */
 .quote-section {
@@ -57,17 +60,13 @@ header h3 {
 }
 
 .quote-section h5 {
-    font-style: light italic;
-    display: flex;
-    justify-content: right;
+    font-style: italic;
     margin-top: 0.5rem;
-    margin-right: 15rem;
+    text-align: right;
 }
 
 .quote-section p {
     font-style: italic;
-    display: flex;
-    text-align: justify;
     margin: auto;
     width: 60%;
 }
@@ -78,10 +77,10 @@ header h3 {
     margin: 2rem;
     padding: 1rem;
 }
+
 .action {
     background-color: #3cb371;
 }
-
 
 /* footer section */
 footer {
@@ -89,7 +88,7 @@ footer {
    color: white;
    padding: 1.5rem;
    text-align: center;
-   position: absolute; 
-   bottom: 0;
    width: 100%;
+   bottom: 0;
+   position: relative; 
 }
