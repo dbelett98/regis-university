@@ -1,14 +1,32 @@
+/* putting everything close to each other + font type */
 * {
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+main {
+    flex: 1;
+}
+/* header section */
 header {
     background-color: #3cb371;
     color: white;
     display: flex;
+    
 }
+
+.header-links {
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+
+.link {
+    color: white;
+    margin-left: 4rem;
+}
+
 
 .hero-section{
     background-color: #3cb371;
