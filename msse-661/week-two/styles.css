@@ -6,51 +6,39 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* header */
 header {
     background: #3cb371;
     color: white;
-    display: flex;
-    justify-content: space-between;
     padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
-header h3 {
-    margin: 0;
+nav {
+    display: flex;
 }
 
 .header-links {
     display: flex;
+    width: 50%;
     gap: 1rem;
-}
-
-.link p {
-    margin: 0;
-}
-
-.hero-section {
-    background: red;
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
+    margin-left: 10rem;
 }
 
 .hero {
-    display: inline-block;
+    display: flex;
+    background-color: red;
+    margin-top: 4rem;
 }
 
-.hero p {
-    max-width: 60%;
-    margin: 1rem auto;
-}
-
-button {
-    display: block;
-    margin: 1rem auto;
-}
-
-.image {
-    margin-top: 2rem;
-}
 
 /* quote section */
 .quote-section {
@@ -90,5 +78,5 @@ footer {
    text-align: center;
    width: 100%;
    bottom: 0;
-   position: relative; 
+   position: fixed; 
 }
