@@ -100,7 +100,15 @@ header .main-heading {
     text-align: center;
 }
 
-
+button {
+    background-color: #3882F6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
 
 /* footer section */
 footer {
