@@ -73,7 +73,6 @@ header .main-heading {
 
 .header-content-left {
     display: flex;
-    background-color: red;
     gap: 0.5rem;
     margin-left: 4rem;
 }
@@ -88,10 +87,17 @@ header .main-heading {
 
 .hero-secondary-text {
     line-height: 1.2;
+    margin-bottom: 0px;
 }
 
 .heading-image {
     background-color: bisque;
+    margin-left: 1rem;
+    margin-right: 10rem;
+    flex-shrink: 0; /* Prevents shrinking */
+    width: 500px; /* Ensures the image placeholder doesn't shrink */
+    padding: 6rem 2rem;
+    text-align: center;
 }
 
 
