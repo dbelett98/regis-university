@@ -1,7 +1,13 @@
 /* using flex box */
-* {
-    padding: 0;
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
     margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-decoration: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -14,11 +20,6 @@ html {
     height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-}
 
 
 
@@ -73,6 +74,7 @@ header .main-heading {
 
 .header-content-left {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     margin-left: 4rem;
 }
