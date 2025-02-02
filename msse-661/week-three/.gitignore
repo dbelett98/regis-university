@@ -1,0 +1,5 @@
+# creating this since Professor Morgan's instructions suggested it
+
+.vscode
+**/node_modules
+**/package-lock.json
