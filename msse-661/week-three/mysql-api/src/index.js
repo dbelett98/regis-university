@@ -1,15 +1,22 @@
 // the following is from Professor Morgan's instructions
 
-
+// include express
 const express = require('express');
+// blogger agent for console logs while passing data into server or from server
 const logger = require('morgan');
+// middleware piece for parsin JSON responses to make it usable in database
 const bodyParser = require('body-parser');
 
+// custom pieces from Professor Morgan
 const tasksRoutes = require('./routes/tasks.routes');
 const middleware = require('./middleware/errors.middleware');
 
+
+// initialized app
 const app = express();
+// setup variable for port
 const port = process.env.PORT || 3000;
+
 const logLevel = process.env.LOG_LEVEL || 'dev';
 
 // Middleware - logs server requests to console
@@ -19,9 +26,6 @@ app.use(logger(logLevel));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// ************************************
-// ROUTE-HANDLING MIDDLEWARE FUNCTIONS
-// ************************************
 
 // Handle routes for tasks.
 app.use('/tasks', tasksRoutes); // http://localhost:3000/tasks
