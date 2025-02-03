@@ -7,7 +7,7 @@ const app = express();
 // middleware -- defines how things should happen before output executes
 app.use(express.static('public'));
 
-
+app.use('/css', express.static(__dirname + '/public/css'));
 
 app.listen(3000, function(){
     console.log("Server started at http://localhost:%s", 3000);
