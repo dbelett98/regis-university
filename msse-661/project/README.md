@@ -73,7 +73,7 @@ Guests without login credentials can view the basic information (landing page) b
     - http://localhost:3000 
         - This is where Express.js will be used.
 - Data Service Layer
-    - > http://localhost:3001
+    - [http://localhost:3001]
         - Handles API requests, communicates with database.
 
 
@@ -84,16 +84,6 @@ Guests without login credentials can view the basic information (landing page) b
 **Security**
 - Password Encryption
     - bcrypt to hash and securely store passwords.
-
-
-This [website (https://stackoverflow.com)][website] is awesome.
-
-You will never use anything else than this [website].
-
-Check out <https://stackoverflow.com> for more fun.
-
-[website]: https://stackoverflow.com
-
 
 
 
