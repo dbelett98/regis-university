@@ -35,3 +35,18 @@ Guests without login credentials can view the basic information (landing page) b
     - This will be optional for this project and will depend on time.
 
 
+## Profile Management
+
+**User Profile**
+- Allow customers to update their profile information.
+    - Contact details, business information, password.
+
+**Service Preferences**
+- Let customers modify their selected services and manage their "subscriptions".
+
+**Accesses** 
+- Staff can view/edit user profiles and manage service offerings. They can also make posts and directly respond to customer questions.
+    - This will be optional for this project and will depend on time.
+
+
+
