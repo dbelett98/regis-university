@@ -49,4 +49,45 @@ Guests without login credentials can view the basic information (landing page) b
     - This will be optional for this project and will depend on time.
 
 
+## Technology
+
+**Frontend**
+- HTML/CSS
+- JavaScript
+    - AJAX for asynchronous data handling.
+    - Possibly will use React or Angular (JS frameworks) depending on time and learning curve.
+    
+
+**Backend**
+- Node.js
+    - Runtime environment, also great that it comes with a package manager (npm).
+
+- Express.js
+    - As we learned, great for building a web server.
+
+- Database
+    - MySQL
+
+**Servers**
+- Web Server
+    - http://localhost:3000 
+        - This is where Express.js will be used.
+- Data Service Layer
+    - http://localhost:3001
+        - Handles API requests, communicates with database.
+
+
+**Testing**
+- Unit Testing
+    - I plan to use Postman since it worked for the web/data server lessons. There are also interesting options like Jest or Mocha which are great for unit testing that I might explore depending on time and learning curve.
+
+**Security**
+- Password Encryption
+    - bcrypt to hash and securely store passwords.
+
+
+
+
+
+
 
