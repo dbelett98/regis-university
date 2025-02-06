@@ -15,3 +15,23 @@ The other part of the web application provides customers with a portal to sign u
 
 Guests without login credentials can view the basic information (landing page) but without access to any personalized features or detailed resources (portal).
 
+
+## User Portal
+
+**Sign up**
+- Customers can register by providing their business name, contact details, and selecting the desired services.
+    - If no business name or contact details are given, then sign up should not be accepted.
+
+**Login**
+- Registered customers can securely access their accounts to manage services and view personalized content for them.
+    - i.e. A business can view how important payroll management can be for them.
+
+**Security**
+- Ensures passwords and confidential data are stored and encrypted.
+    - This is important since people will input their SSNs during taxes.
+
+**Contact**
+- Feature for customers to send messages/requests to staff.
+    - This will be optional for this project and will depend on time.
+
+
