@@ -1,1 +1,1 @@
-Will explain project
+Basic authentication between  client application and backend service
