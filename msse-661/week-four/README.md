@@ -1,1 +1,1 @@
-Basic authentication between  client application and backend service
+Web server + MySQL server
