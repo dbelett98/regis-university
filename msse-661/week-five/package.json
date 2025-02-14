@@ -4,8 +4,12 @@
   "description": "Week 5 -- Advanced JS",
   "main": "index.js",
   "scripts": {
-     "start": "nodemon ./server"
+    "start": "nodemon ./server"
   },
   "author": "David Belett",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
 }
