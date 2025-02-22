@@ -9,6 +9,6 @@
 
 -	Due to this, I was unable to get Papyrus Designer to generate code for me, so instead I am creating Java code following the instructions, instead of doing it through Papyrus Designer
     
-![Papyrus Image](papyrus_img/image.png
+![Papyrus Image](papyrus_img/image.png)
 
 - The actual code will be located in different parts of this repo.
