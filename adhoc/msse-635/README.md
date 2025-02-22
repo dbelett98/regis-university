@@ -20,7 +20,7 @@
 
 ![UML](logical_view/logical_uml.png)
 
-#### Explanation of Customer class code
+#### Explanation of code
 
 - Key Entities defined
     - `Customer`, `Order`, `Inventory`, and `Payment` defined as the components of the system.
@@ -31,3 +31,23 @@
 - JUnit Testing
     - Each of the test cases ensure that each `toString()` method functions as expected.
 
+
+## Scenario Viewpoint
+
+### UML Use Case Diagram
+
+![use case diagram](scenario_view/use_case_uml.png)
+
+#### Explanation of the code
+
+- Focused on the use cases from the scenarion view (see picture above).
+
+- Implemented methods represent each use case directly
+    - `Customer.registerCustomer()`: register's customer.
+    - `Inventory.isAvailable()`: checks inventory.
+    - `Order.placeOrder()`: places an order.
+    - `Payment.makePayment()`: processes payment.
+
+- `toString()` methods reflect attributes and relationships.
+
+- JUnit tests verify each use case works.
