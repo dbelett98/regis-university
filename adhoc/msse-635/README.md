@@ -22,22 +22,12 @@
 
 #### Explanation of Customer class code
 
-- The `Customer` class represents a customer entity.
+- Key Entities defined
+    - `Customer`, `Order`, `Inventory`, and `Payment` defined as the components of the system.
 
-- Attributes
-    - `customerId`: Integer uniquely identifying the customer.
-    - `name`: Customer's name.
-    - `email`: Customer's email address.
+- Unified Database
+    - This was a change from the UML diagram I drew, but I felt doing one single `Database` was better than doing a database for every component, as this simplies data storage.
 
-- Constructors
-    - Creates empty `Customer` object.
-    - `Customer` is then initialized with specific values/parameters.
+- JUnit Testing
+    - Each of the test cases ensure that each `toString()` method functions as expected.
 
-- Getters and Setters
-    - Provide access/modification methods for each private attribute.
-        - Maintains encapsulation.
-
-- toString() Method
-    - Returns string of the `Customer`.
-        - Including all the attributes.
-        
