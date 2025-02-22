@@ -12,3 +12,32 @@
 ![Papyrus Image](papyrus_img/image.png)
 
 - The actual code will be located in different parts of this repo.
+
+
+## Logical Viewpoint
+
+#### UML Component Diagram
+
+![UML](logical_view/logical_uml.png)
+
+#### Explanation of Customer class code
+
+- The `Customer` class represents a customer entity.
+
+- Attributes
+    - `customerId`: Integer uniquely identifying the customer.
+    - `name`: Customer's name.
+    - `email`: Customer's email address.
+
+- Constructors
+    - Creates empty `Customer` object.
+    - `Customer` is then initialized with specific values/parameters.
+
+- Getters and Setters
+    - Provide access/modification methods for each private attribute.
+        - Maintains encapsulation.
+
+- toString() Method
+    - Returns string of the `Customer`.
+        - Including all the attributes.
+        
