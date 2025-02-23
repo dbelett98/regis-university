@@ -1,16 +1,31 @@
-.task-item-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .task-checkbox {
-    width: 25px;
-    display: flex;
-  }
-  
-  .task-name,
-  .task-status {
-    width: 200px;
-  }
+.center {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* css3 magic! */
+}
+
+.task-form {
+  margin: 50px 100px;
+}
+
+.list-group-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-group-item span {
+  width: 200px;
+}
+
+footer {
+  padding: 16px 8px;
+  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+}
+
+.author {
+  margin-left: 24px;
+}
