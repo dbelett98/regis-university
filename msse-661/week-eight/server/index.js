@@ -1,15 +1,25 @@
-//following lecture
-
 const express = require('express');
+var fs = require('fs');
+var https = require('https');
 const app = express();
 
-const port = process.env.PORT || 4000;
+const httpPort = process.env.PORT || 4000;
+const httpsPort = process.env.HTTPS_PORT || 4443;
 
 app.use(express.static('public'));
 
-app.use('/css', express.static(__dirname + '/public/css')); // http://localhost:3000/css
-app.use('/js', express.static(__dirname + '/public/src')); // http://localhost:3000/js
-
-app.listen(port, function() {
-  console.log('Server started at http://localhost:%s', port);
+app.listen(httpPort, () => {
+  console.log('Server started at http://localhost:%s', httpPort);
 });
+
+https
+  .createServer(
+    {
+      key: fs.readFileSync(__dirname + '/server.key'),
+      cert: fs.readFileSync(__dirname + '/server.cert'),
+    },
+    app
+  )
+  .listen(httpsPort, () => {
+    console.log('Server started at http://localhost:%s', httpsPort);
+  });
