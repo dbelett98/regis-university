@@ -1,67 +1,184 @@
 <!DOCTYPE html>
-
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professional Service Business</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-white text-dark">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand font-weight-bold" href="#"><span class="psb-name">PSB</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#why-us">Why Choose Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Landing Page</title>
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-
-    <body>
-        
-        <header>
-            <nav>
-                <div class="logo">
-                    <p>Header Logo</p>
-                </div>
-                <div class="header-link">
-                    <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Services</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="main-heading">
-                <div class="header-content-left">
-                    <h2 class="hero-main-text">This Website is Awesome!</h2>
-                    <p class="hero-secondary-text">This will be some brief text 
-                        that goes under the main title to further clarify and explain its title. 
+        <!-- Main Heading -->
+        <div class="container mt-5 mb-5">
+            <div class="row align-items-center">
+                <!-- Hero Text -->
+                <div class="col-md-6">
+                    <h1 class="display-4 font-weight-bold">Empowering Your Business to Thrive</h1>
+                    <p class="lead">
+                        Professional Service Business (<span class="psb-name">PSB</span>) provides comprehensive tax, payroll, and accounting services tailored to your business needs. Let us handle the numbers while you focus on what you do best.
                     </p>
-                    <p><button>Sign up</button></p>
+                    <a href="#" class="btn btn-primary btn-lg">Sign Up</a>
                 </div>
-                <div class="heading-image">
-                    <p>this is a placeholder for an image</p>
+                <!-- Hero Image Placeholder -->
+                <div class="col-md-6 text-center">
+                    <img src="https://via.placeholder.com/500x400" alt="Business Growth Image" class="img-fluid">
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-
-        <!-- Next section for next week -->
-        <!-- <main>
-            <section class="quote">
-                <p>This is an inspiring quote, or a testimonial from a customer. Maybe it's just filling up space,
-                    or maybe people will actually read it. Who knows? All I know is that it looks nice.
-                </p>
-                <h5>-David Belett</h5>
-            </section>
-
-            <section class="action">
-                <div class="action-text">
-                    <h3>Call to action!</h3>
-                    <p>Sign up for our product by clicking that button over there</p>
+    <!-- Main Content -->
+    <main>
+        <!-- Services Section -->
+        <section id="services" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-5 text-center">Our Services</h2>
+                <div class="row">
+                    <!-- Tax Services -->
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Tax Services</h4>
+                                <p class="card-text">
+                                    Expert tax planning and preparation services for businesses and individuals. We ensure compliance and optimize your tax position.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Payroll Services -->
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Payroll Services</h4>
+                                <p class="card-text">
+                                    Efficient and accurate payroll processing tailored to your business. We handle everything from wage calculations to tax withholdings.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accounting Services -->
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Accounting Services</h4>
+                                <p class="card-text">
+                                    Comprehensive accounting solutions including bookkeeping, financial statements, and strategic planning to help your business grow.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button>Sign up</button>
-            </section>
-        </main> -->
+            </div>
+        </section>
 
+        <!-- Why Choose Us Section -->
+        <section id="why-us" class="py-5">
+            <div class="container">
+                <h2 class="mb-5 text-center">Why Choose <span class="psb-name">PSB</span>?</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Experienced Professionals</h5>
+                        <p>
+                            Our team consists of certified professionals with years of experience in the financial industry, dedicated to providing top-notch services.
+                        </p>
+                        <h5>Personalized Solutions</h5>
+                        <p>
+                            We understand that every business is unique. We offer customized solutions that are tailored to meet your specific needs.
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Commitment to Excellence</h5>
+                        <p>
+                            We are committed to delivering exceptional service and building long-term relationships based on trust and integrity.
+                        </p>
+                        <h5>Cost-Effective Services</h5>
+                        <p>
+                            Our competitive pricing ensures you receive high-quality services without breaking the bank.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <footer>
-            <p>Copyright David Belett 2025</p>
-        </footer>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-5 text-center">What Our Clients Say</h2>
+                <div class="row">
+                    <!-- Testimonial 1 -->
+                    <div class="col-md-4">
+                        <blockquote class="blockquote text-center">
+                            <p class="mb-0">
+                                "<span class="psb-name">PSB</span> has transformed the way we handle our finances. Their expertise is unmatched!"
+                            </p>
+                        </blockquote>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="col-md-4">
+                        <blockquote class="blockquote text-center">
+                            <p class="mb-0">
+                                "Their payroll services are efficient and reliable. Highly recommended."
+                            </p>
+                        </blockquote>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="col-md-4">
+                        <blockquote class="blockquote text-center">
+                            <p class="mb-0">
+                                "I appreciate their personalized approach. <span class="psb-name">PSB</span> truly cares about our business success."
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    </body>
+        <!-- Call to Action Section -->
+        <section class="py-5 cta-section text-center">
+            <div class="container">
+                <h2 class="text-dark">Ready to Elevate Your Business?</h2>
+                <p class="lead text-dark">Join <span class="psb-name">PSB</span> today and take the first step towards financial excellence.</p>
+                <a href="#" class="btn btn-primary btn-lg">Get Started</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">© David Belett 2025</p>
+    </footer>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
     <script src="app.js"></script>
+</body>
 </html>
