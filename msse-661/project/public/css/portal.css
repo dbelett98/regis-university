@@ -1,0 +1,217 @@
+/* General Styles */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+a {
+    text-decoration: none;
+}
+
+.psb-name {
+    color: #007bff; /* Same blue as buttons */
+}
+
+.business-name {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Header Section */
+
+header {
+    flex-shrink: 0;
+}
+
+header .navbar-brand {
+    font-size: 1.8rem;
+    color: #000;
+}
+
+header .navbar-nav .nav-link {
+    font-size: 1rem;
+    margin-right: 1rem;
+    color: #555;
+}
+
+header .navbar-nav .nav-link i {
+    margin-right: 5px;
+}
+
+header .navbar-nav .nav-link:hover {
+    color: #000;
+}
+
+/* Main Content */
+
+main {
+    flex: 1 0 auto;
+}
+
+main h2, main h3 {
+    color: #000;
+}
+
+main p {
+    color: #555;
+}
+
+main .card-title {
+    color: #007bff;
+}
+
+main .card-text {
+    color: #555;
+}
+
+main .card {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+main .card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+main .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+main .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+main .btn-outline-primary {
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+
+main .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Profile Management */
+
+#profile img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#profile .form-group label {
+    color: #000;
+}
+
+#profile .form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+/* Services Section */
+
+#services .card i {
+    color: #007bff;
+}
+
+#services .custom-control {
+    margin-top: 1rem;
+}
+
+#services .custom-control-label::before,
+#services .custom-control-label::after {
+    width: 2.5rem;
+    height: 1.25rem;
+}
+
+#services .custom-control-label::before {
+    background-color: #ccc;
+    border-radius: 1.25rem;
+    transition: background-color 0.3s ease-in-out;
+    border: 1px solid #ccc;
+}
+
+#services .custom-control-label::after {
+    top: 0.1rem;
+    left: 0.1rem;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+    content: '';
+}
+
+#services .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+#services .custom-control-input:checked ~ .custom-control-label::after {
+    transform: translateX(1.25rem);
+}
+
+#services .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+#services .custom-control-label {
+    padding-left: 3rem;
+    line-height: 1.5;
+    color: #000;
+    font-weight: 600;
+}
+
+#services .custom-control-input {
+    position: absolute;
+    left: -9999px;
+}
+
+/* Footer Section */
+
+footer {
+    flex-shrink: 0;
+    background-color: #343a40;
+}
+
+/* Responsive Adjustments */
+
+@media (max-width: 768px) {
+    header .navbar-nav {
+        text-align: center;
+    }
+
+    header .navbar-nav .nav-link {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    main .card {
+        margin-bottom: 1rem;
+    }
+
+    #profile .row {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    #profile .col-md-6 {
+        margin-top: 2rem;
+    }
+}
