@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PSB - User Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-white text-dark">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand font-weight-bold" href="index.html"><span class="psb-name">PSB</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Added Icons to Navigation Links -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="portal.html"><i class="fas fa-home"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#profile"><i class="fas fa-user-circle"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services"><i class="fas fa-cogs"></i> Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources"><i class="fas fa-book"></i> Resources</a>
+                    </li>
+                    <!-- Logout Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Welcome Section -->
+        <section id="dashboard">
+            <h2 class="mb-4">Welcome, <span class="business-name">[Business Name]</span>!</h2>
+            <p>We're glad to have you back at <span class="psb-name">PSB</span>.</p>
+            <!-- Overview Cards -->
+            <div class="row">
+                <!-- Card 1: Subscribed Services -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-cogs fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Subscribed Services</h5>
+                            <p class="card-text flex-grow-1">View and manage your services.</p>
+                            <a href="#services" class="btn btn-outline-primary mt-auto">Manage Services</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2: Profile Information -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-user-circle fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Profile Information</h5>
+                            <p class="card-text flex-grow-1">Update your contact details.</p>
+                            <a href="#profile" class="btn btn-outline-primary mt-auto">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3: Resources -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-book fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Resources</h5>
+                            <p class="card-text flex-grow-1">Access helpful materials.</p>
+                            <a href="#resources" class="btn btn-outline-primary mt-auto">View Resources</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Management -->
+        <section id="profile" class="my-5">
+            <h3 class="mb-4"><i class="fas fa-user-circle"></i> Profile Management</h3>
+            <div class="row">
+                <!-- Profile Form -->
+                <div class="col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="businessName">Business Name</label>
+                            <input type="text" class="form-control" id="businessName" value="[Business Name]" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Contact Email</label>
+                            <input type="email" class="form-control" id="contactEmail" value="email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Contact Phone</label>
+                            <input type="tel" class="form-control" id="contactPhone" value="(123) 456-7890">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+                <!-- Profile Overview -->
+                <div class="col-md-6 text-center">
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle mb-3">
+                    <h4 class="business-name mb-0">[Business Name]</h4>
+                    <p class="text-muted">Your business at a glance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Management -->
+        <section id="services" class="my-5">
+            <h3 class="mb-4"><i class="fas fa-cogs"></i> Manage Your Services</h3>
+            <!-- Modernized Service Selection -->
+            <div class="row">
+                <!-- Service Card 1 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-file-invoice-dollar fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Tax Services</h5>
+                            <p class="card-text flex-grow-1">Expert tax planning and preparation services.</p>
+                            <!-- Toggle Switch -->
+                            <div class="custom-control custom-switch mt-auto">
+                                <input type="checkbox" class="custom-control-input" id="taxServices" checked>
+                                <label class="custom-control-label" for="taxServices">Subscribed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service Card 2 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-wallet fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Payroll Services</h5>
+                            <p class="card-text flex-grow-1">Efficient and accurate payroll processing.</p>
+                            <!-- Toggle Switch -->
+                            <div class="custom-control custom-switch mt-auto">
+                                <input type="checkbox" class="custom-control-input" id="payrollServices" checked>
+                                <label class="custom-control-label" for="payrollServices">Subscribed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service Card 3 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm text-center h-100">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-chart-line fa-2x mb-3 text-primary"></i>
+                            <h5 class="card-title">Accounting Services</h5>
+                            <p class="card-text flex-grow-1">Comprehensive accounting solutions.</p>
+                            <!-- Toggle Switch -->
+                            <div class="custom-control custom-switch mt-auto">
+                                <input type="checkbox" class="custom-control-input" id="accountingServices">
+                                <label class="custom-control-label" for="accountingServices">Subscribe</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Update Button Centered Below Services -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-3">Update Services</button>
+            </div>
+        </section>
+
+        <!-- Educational Resources -->
+        <section id="resources" class="my-5">
+            <h3 class="mb-4"><i class="fas fa-book"></i> Educational Resources</h3>
+            <div class="row">
+                <!-- Resource 1 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Understanding Tax Compliance</h5>
+                            <p class="card-text flex-grow-1">Learn how proper tax compliance can benefit your business.</p>
+                            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Resource 2 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Efficient Payroll Management</h5>
+                            <p class="card-text flex-grow-1">Discover best practices for managing your payroll effectively.</p>
+                            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Resource 3 -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Strategic Accounting Tips</h5>
+                            <p class="card-text flex-grow-1">Optimize your accounting processes with these strategies.</p>
+                            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">© Professional Service Business 2025</p>
+    </footer>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS (Optional) -->
+    <!-- <script src="app.js"></script> -->
+</body>
+</html>
