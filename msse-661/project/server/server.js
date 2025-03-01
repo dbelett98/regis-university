@@ -1,4 +1,4 @@
-// set up
+// set up //
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -13,8 +13,8 @@ app.listen(PORT, () => {
 });
 
 
-// Registration Endpoint
-// server/server.js
+// UPDATE Registration Endpoint //
+
 const bcrypt = require('bcrypt');
 
 let users = []; // In-memory user storage (replace with database in production)
@@ -37,5 +37,50 @@ app.post('/register', async (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error registering user' });
+  }
+});
+
+
+
+// UPDATE authentication middleware and the change password endpoint //
+
+// Authentication Middleware
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) return res.status(401).json({ message: 'Access Denied: No Token Provided' });
+
+  jwt.verify(token, 'secretkey', (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid Token' });
+
+    req.user = user;
+    next();
+  });
+}
+
+// Change Password Endpoint
+app.post('/change-password', authenticateToken, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const username = req.user.username;
+
+  // Find the user
+  const user = users.find(user => user.username === username);
+  if (!user) {
+    return res.status(400).json({ message: 'User not found' });
+  }
+
+  // Compare old password
+  try {
+    const validPassword = await bcrypt.compare(oldPassword, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Incorrect old password' });
+    }
+
+    // Update password
+    user.password = await bcrypt.hash(newPassword, 10);
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error changing password' });
   }
 });
