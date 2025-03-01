@@ -84,3 +84,25 @@ app.post('/change-password', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error changing password' });
   }
 });
+
+
+//UPDATE allow users to modify their username and add other relevant settings.//
+
+
+// Update Username Endpoint
+app.post('/update-username', authenticateToken, (req, res) => {
+  const { newUsername } = req.body;
+  const username = req.user.username;
+
+  // Check if new username is taken
+  const userExists = users.find(user => user.username === newUsername);
+  if (userExists) {
+    return res.status(400).json({ message: 'Username already taken' });
+  }
+
+  // Update username
+  const user = users.find(user => user.username === username);
+  user.username = newUsername;
+
+  res.status(200).json({ message: 'Username updated successfully' });
+});
