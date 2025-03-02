@@ -46,8 +46,8 @@ app.post('/register', async (req, res) => {
 
     // Insert the new user
     await promisePool.query(
-      'INSERT INTO users (username, password, business_name) VALUES (?, ?, ?)',
-      [username, hashedPassword, business_name]
+      'INSERT INTO users (business_name, username, password) VALUES (?, ?, ?)',
+      [business_name, username, hashedPassword]
     );
 
     res.status(201).json({ message: 'User registered successfully.' });
