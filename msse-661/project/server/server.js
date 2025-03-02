@@ -27,11 +27,11 @@ const promisePool = pool.promise();
 
 // Registration Endpoint
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, business_name } = req.body;
 
   // Validate inputs
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required.' });
+  if (!username || !password || !business_name) {
+    return res.status(400).json({ message: 'Username, password, and business name are required.' });
   }
 
   try {
@@ -45,7 +45,10 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert the new user
-    await promisePool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+    await promisePool.query(
+      'INSERT INTO users (username, password, business_name) VALUES (?, ?, ?)',
+      [username, hashedPassword, business_name]
+    );
 
     res.status(201).json({ message: 'User registered successfully.' });
   } catch (error) {
