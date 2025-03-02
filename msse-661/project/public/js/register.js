@@ -75,7 +75,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
       alert(result.message);
       // Save token
       localStorage.setItem('token', result.token);
-      window.location.href = 'index.html';
+      window.location.href = 'portal.html';
     } else {
       alert(result.message);
     }
