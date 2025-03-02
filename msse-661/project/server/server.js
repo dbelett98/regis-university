@@ -116,7 +116,7 @@ let businesses = [
     description: 'A family-owned bakery offering fresh bread and pastries daily.',
     email: 'contact@bellasbakery.com',
     phone: '(555) 123-4567',
-    image: '/images/bellas_bakery.jpg',
+    image: '/images/bellas_bakery.png',
   },
   {
     id: 2,
@@ -132,7 +132,7 @@ let businesses = [
     description: 'Your local plant nursery with a wide selection of plants and gardening supplies.',
     email: 'sales@greenthumbnursery.com',
     phone: '(555) 555-1212',
-    image: '/images/green_thumb_nursery.jpg',
+    image: '/images/green_thumb_nursery.png',
   },
 ];
 
