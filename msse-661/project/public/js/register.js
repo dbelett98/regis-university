@@ -4,10 +4,16 @@
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const business_name = document.getElementById('regBusinessName').value.trim();
   const username = document.getElementById('regUsername').value.trim();
   const password = document.getElementById('regPassword').value;
 
   // Validate inputs
+  if (!validateBusinessName(business_name)) {
+    alert('Business name must be at least 3 characters.');
+    return;
+  }
+
   if (!validateUsername(username)) {
     alert('Username must be at least 3 characters.');
     return;
@@ -18,7 +24,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     return;
   }
 
-  const data = { username, password };
+   const data = { business_name, username, password };
 
   try {
     const response = await fetch('http://localhost:3001/register', {
@@ -80,6 +86,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 });
 
 // Validation Functions
+
+function validateBusinessName(business_name) {
+  return business_name.length >= 3;
+}
+
 function validateUsername(username) {
   return username.length >= 3;
 }
