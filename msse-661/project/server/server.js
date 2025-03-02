@@ -106,3 +106,40 @@ app.post('/update-username', authenticateToken, (req, res) => {
 
   res.status(200).json({ message: 'Username updated successfully' });
 });
+
+
+// Array of small businesses with updated fields
+let businesses = [
+  {
+    id: 1,
+    name: "Bella's Bakery",
+    description: 'A family-owned bakery offering fresh bread and pastries daily.',
+    email: 'contact@bellasbakery.com',
+    phone: '(555) 123-4567',
+    image: '/images/bellas_bakery.jpg',
+  },
+  {
+    id: 2,
+    name: 'Tech Solutions Inc.',
+    description: 'Providing affordable tech support for small businesses.',
+    email: 'info@techsolutions.com',
+    phone: '(555) 987-6543',
+    image: '/images/tech_solutions.png',
+  },
+  {
+    id: 3,
+    name: 'Green Thumb Nursery',
+    description: 'Your local plant nursery with a wide selection of plants and gardening supplies.',
+    email: 'sales@greenthumbnursery.com',
+    phone: '(555) 555-1212',
+    image: '/images/green_thumb_nursery.jpg',
+  },
+];
+
+// Serve static images from the 'public/images' directory
+app.use('/images', express.static(path.join(__dirname, '../public/images')));
+
+// Protected endpoint to get the list of businesses
+app.get('/businesses', authenticateToken, (req, res) => {
+  res.json(businesses);
+});
