@@ -143,3 +143,15 @@ function authenticateToken(req, res, next) {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+//test database connection
+app.get('/test-db-connection', async (req, res) => {
+  try {
+    const [rows] = await promisePool.query('SELECT 1 + 1 AS solution');
+    res.json({ message: 'Database connection successful.', solution: rows[0].solution });
+  } catch (error) {
+    console.error('Database connection error:', error);
+    res.status(500).json({ message: 'Database connection failed.' });
+  }
+});
