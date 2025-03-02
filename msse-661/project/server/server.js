@@ -27,11 +27,17 @@ const promisePool = pool.promise();
 
 // Registration Endpoint
 app.post('/register', async (req, res) => {
-  const { username, password, business_name } = req.body;
+  const { business_name, username, password } = req.body
 
   // Validate inputs
-  if (!username || !password || !business_name) {
-    return res.status(400).json({ message: 'Username, password, and business name are required.' });
+  if (!business_name || business_name.trim().length < 3) {
+    return res.status(400).json({ message: 'Business name must be at least 3 characters.' });
+  }
+  if (!username || username.trim().length < 3) {
+    return res.status(400).json({ message: 'Username must be at least 3 characters.' });
+  }
+  if (!password || password.length < 6) {
+    return res.status(400).json({ message: 'Password must be at least 6 characters.' });
   }
 
   try {
