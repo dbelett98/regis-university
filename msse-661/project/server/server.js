@@ -1,145 +1,145 @@
-// set up //
+// server/server.js
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const mysql = require('mysql2');
+require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// Create a MySQL connection pool
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-
-// UPDATE Registration Endpoint //
-
-const bcrypt = require('bcrypt');
-
-let users = []; // In-memory user storage (replace with database in production)
+// Promisify pool queries for async/await
+const promisePool = pool.promise();
 
 // Registration Endpoint
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
-  // Check if user already exists
-  const userExists = users.find(user => user.username === username);
-  if (userExists) {
-    return res.status(400).json({ message: 'User already exists' });
+  // Validate inputs
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
   }
 
-  // Hash the password
   try {
+    // Check if user exists
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
+    if (rows.length > 0) {
+      return res.status(400).json({ message: 'Username already taken.' });
+    }
+
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = { username, password: hashedPassword };
-    users.push(newUser);
-    res.status(201).json({ message: 'User registered successfully' });
+
+    // Insert the new user
+    await promisePool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+
+    res.status(201).json({ message: 'User registered successfully.' });
   } catch (error) {
-    res.status(500).json({ message: 'Error registering user' });
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error registering user.' });
   }
 });
 
+// Login Endpoint
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
 
+  // Validate inputs
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
 
-// UPDATE authentication middleware and the change password endpoint //
+  try {
+    // Find user
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
 
-// Authentication Middleware
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+    const user = rows[0];
 
-  if (!token) return res.status(401).json({ message: 'Access Denied: No Token Provided' });
+    // Compare password
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
 
-  jwt.verify(token, 'secretkey', (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid Token' });
+    // Generate token
+    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
 
-    req.user = user;
-    next();
-  });
-}
+    res.status(200).json({ message: 'Login successful.', token });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error logging in.' });
+  }
+});
 
 // Change Password Endpoint
 app.post('/change-password', authenticateToken, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const username = req.user.username;
 
-  // Find the user
-  const user = users.find(user => user.username === username);
-  if (!user) {
-    return res.status(400).json({ message: 'User not found' });
+  // Validate inputs
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ message: 'Old and new passwords are required.' });
   }
 
-  // Compare old password
   try {
-    const validPassword = await bcrypt.compare(oldPassword, user.password);
-    if (!validPassword) {
-      return res.status(400).json({ message: 'Incorrect old password' });
+    // Find user
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'User not found.' });
     }
 
+    const user = rows[0];
+
+    // Verify old password
+    const match = await bcrypt.compare(oldPassword, user.password);
+    if (!match) {
+      return res.status(400).json({ message: 'Incorrect old password.' });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
     // Update password
-    user.password = await bcrypt.hash(newPassword, 10);
-    res.status(200).json({ message: 'Password changed successfully' });
+    await promisePool.query('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username]);
+
+    res.status(200).json({ message: 'Password changed successfully.' });
   } catch (error) {
-    res.status(500).json({ message: 'Error changing password' });
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error changing password.' });
   }
 });
 
+// Authentication Middleware
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-//UPDATE allow users to modify their username and add other relevant settings.//
+  if (!token) return res.status(401).json({ message: 'Access token required.' });
 
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid access token.' });
+    req.user = user;
+    next();
+  });
+}
 
-// Update Username Endpoint
-app.post('/update-username', authenticateToken, (req, res) => {
-  const { newUsername } = req.body;
-  const username = req.user.username;
-
-  // Check if new username is taken
-  const userExists = users.find(user => user.username === newUsername);
-  if (userExists) {
-    return res.status(400).json({ message: 'Username already taken' });
-  }
-
-  // Update username
-  const user = users.find(user => user.username === username);
-  user.username = newUsername;
-
-  res.status(200).json({ message: 'Username updated successfully' });
-});
-
-
-// Array of small businesses with updated fields
-let businesses = [
-  {
-    id: 1,
-    name: "Bella's Bakery",
-    description: 'A family-owned bakery offering fresh bread and pastries daily.',
-    email: 'contact@bellasbakery.com',
-    phone: '(555) 123-4567',
-    image: '/images/bellas_bakery.png',
-  },
-  {
-    id: 2,
-    name: 'Tech Solutions Inc.',
-    description: 'Providing affordable tech support for small businesses.',
-    email: 'info@techsolutions.com',
-    phone: '(555) 987-6543',
-    image: '/images/tech_solutions.png',
-  },
-  {
-    id: 3,
-    name: 'Green Thumb Nursery',
-    description: 'Your local plant nursery with a wide selection of plants and gardening supplies.',
-    email: 'sales@greenthumbnursery.com',
-    phone: '(555) 555-1212',
-    image: '/images/green_thumb_nursery.png',
-  },
-];
-
-// Serve static images from the 'public/images' directory
-app.use('/images', express.static(path.join(__dirname, '../public/images')));
-
-// Protected endpoint to get the list of businesses
-app.get('/businesses', authenticateToken, (req, res) => {
-  res.json(businesses);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
