@@ -2,17 +2,23 @@
 
 async function loadUserProfile() {
     const token = localStorage.getItem('token');
+    console.log('Token:', token); //debugging
 
     try {
         const response = await fetch('http://localhost:3001/profile', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
+        console.log('Response Status:', response.status); //debugging
+
         if (!response.ok) {
             throw new Error('Failed to fetch user profile.');
         }
 
         const user = await response.json();
+        console.log('User Data:', user); //debugging
+
+        // update DOM with user data
         document.getElementById('displayBusinessName').textContent = user.business_name;
         document.getElementById('businessName').value = user.business_name;
         document.getElementById('profileBusinessName').textContent = user.business_name;
