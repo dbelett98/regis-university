@@ -28,6 +28,11 @@ apiApp.use(bodyParser.json());
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Handle requests to '/'
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/landing-page.html'));
+});
+
 // Start the web server
 app.listen(WEB_PORT, () => {
   console.log(`Web server is running on http://localhost:${WEB_PORT}`);
