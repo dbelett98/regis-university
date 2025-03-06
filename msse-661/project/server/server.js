@@ -230,3 +230,30 @@ apiApp.post('/update-business-name', authenticateToken, async (req, res) => {
 apiApp.listen(API_PORT, () => {
   console.log(`Data service is running on http://localhost:${API_PORT}`);
 });
+
+// Update Username Endpoint (API Server)
+apiApp.post('/update-username', authenticateToken, async (req, res) => {
+  const { newUsername } = req.body;
+  const currentUsername = req.user.username;
+
+  // Validate input
+  if (!newUsername || newUsername.trim().length < 3) {
+    return res.status(400).json({ message: 'Username must be at least 3 characters.' });
+  }
+
+  try {
+    // Optionally check if the new username already exists
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [newUsername]);
+    if (rows.length > 0) {
+      return res.status(400).json({ message: 'Username already taken.' });
+    }
+
+    // Update username in the database
+    await promisePool.query('UPDATE users SET username = ? WHERE username = ?', [newUsername.trim(), currentUsername]);
+
+    res.status(200).json({ message: 'Username updated successfully.' });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error updating username.' });
+  }
+});
