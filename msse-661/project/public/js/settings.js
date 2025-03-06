@@ -26,6 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
               const result = await response.json();
               if (response.ok) {
                   alert(result.message);
+                  // Update the token in localStorage with the new token
+                  if (result.token) {
+                      localStorage.setItem('token', result.token);
+                  }
+                  // Optionally update displayed username on the portal if needed
               } else {
                   alert(result.message);
               }
@@ -35,6 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   }
+  
+  // ... handle password update similarly ...
+});
+
 
   // Handle password update
   const updatePasswordForm = document.getElementById('updatePasswordForm');
