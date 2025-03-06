@@ -184,31 +184,40 @@ apiApp.post('/update-business-name', authenticateToken, async (req, res) => {
   }
 });
 
-// UPDATE USERNAME ENDPOINT - Added to resolve the 404 error
+// Update Username Endpoint (API Server)
 apiApp.post('/update-username', authenticateToken, async (req, res) => {
   const { newUsername } = req.body;
-  const currentUserId = req.user.id;
+  const currentUserId = req.user.id;  // immutable user id from token
 
+  // Validate input
   if (!newUsername || newUsername.trim().length < 3) {
     return res.status(400).json({ message: 'Username must be at least 3 characters.' });
   }
 
   try {
-    // Optionally check if the new username already exists
-    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [newUsername]);
-    if (rows.length > 0) {
+    // Optionally, check if the new username already exists
+    const [existingRows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [newUsername.trim()]);
+    if (existingRows.length > 0) {
       return res.status(400).json({ message: 'Username already taken.' });
     }
 
-    // Update the username using the user id from the token
+    // Update the username in the database
     await promisePool.query('UPDATE users SET username = ? WHERE id = ?', [newUsername.trim(), currentUserId]);
 
-    res.status(200).json({ message: 'Username updated successfully.' });
+    // Retrieve the updated user record
+    const [updatedRows] = await promisePool.query('SELECT * FROM users WHERE id = ?', [currentUserId]);
+    const updatedUser = updatedRows[0];
+
+    // Generate a new JWT token with the updated username and the same user id
+    const newToken = jwt.sign({ id: updatedUser.id, username: updatedUser.username }, JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ message: 'Username updated successfully.', token: newToken });
   } catch (error) {
     console.error('Database error:', error);
     res.status(500).json({ message: 'Error updating username.' });
   }
 });
+
 
 // Change Password Endpoint
 apiApp.post('/change-password', authenticateToken, async (req, res) => {
