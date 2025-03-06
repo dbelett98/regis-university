@@ -1,11 +1,10 @@
 // server/server.js
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const mysql = require('mysql2'); 
+const mysql = require('mysql2'); // make sure mysql2 is imported
 const path = require('path');
 require('dotenv').config();
 
@@ -28,7 +27,7 @@ apiApp.use(bodyParser.json());
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Handle requests to '/'
+// Handle requests to '/' by serving landing-page.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/html/landing-page.html'));
 });
@@ -49,7 +48,7 @@ const pool = mysql.createPool({
 // Promisify pool queries for async/await
 const promisePool = pool.promise();
 
-// Authentication Middleware
+/* ------------------- Authentication Middleware ------------------- */
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -63,7 +62,9 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Test Database Connection Endpoint (API Server)
+/* ------------------- API Endpoints on apiApp ------------------- */
+
+// Test Database Connection Endpoint
 apiApp.get('/test-db-connection', async (req, res) => {
   try {
     const [rows] = await promisePool.query('SELECT 1 + 1 AS solution');
@@ -74,7 +75,72 @@ apiApp.get('/test-db-connection', async (req, res) => {
   }
 });
 
-// Registration Endpoint (API Server)
+// ------------------- Login Endpoint -------------------
+apiApp.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
+
+  try {
+    // Find user by username (login uses username)
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
+
+    const user = rows[0];
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
+
+    // Generate token with immutable id and username
+    const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).json({ message: 'Login successful.', token });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error logging in.' });
+  }
+});
+
+// ------------------- Get User Profile Endpoint -------------------
+apiApp.get('/profile', authenticateToken, async (req, res) => {
+  const userId = req.user.id;  // Using id from token
+
+  try {
+    const [rows] = await promisePool.query('SELECT business_name, username FROM users WHERE id = ?', [userId]);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+    const user = rows[0];
+    res.status(200).json({ business_name: user.business_name, username: user.username });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error fetching user profile.' });
+  }
+});
+
+// ------------------- Update Business Name Endpoint -------------------
+apiApp.post('/update-business-name', authenticateToken, async (req, res) => {
+  const { newBusinessName } = req.body;
+  const userId = req.user.id;
+
+  if (!newBusinessName || newBusinessName.trim().length < 3) {
+    return res.status(400).json({ message: 'Business name must be at least 3 characters.' });
+  }
+
+  try {
+    await promisePool.query('UPDATE users SET business_name = ? WHERE id = ?', [newBusinessName.trim(), userId]);
+    res.status(200).json({ message: 'Business name updated successfully.' });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error updating business name.' });
+  }
+});
+
+// ------------------- Registration Endpoint -------------------
 apiApp.post('/register', async (req, res) => {
   const { business_name, username, password } = req.body;
 
@@ -112,57 +178,21 @@ apiApp.post('/register', async (req, res) => {
   }
 });
 
-// Login Endpoint (API Server)
-apiApp.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  // Validate inputs
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required.' });
-  }
-
-  try {
-    // Find user
-    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
-    if (rows.length === 0) {
-      return res.status(400).json({ message: 'Invalid username or password.' });
-    }
-
-    const user = rows[0];
-
-    // Compare password
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      return res.status(400).json({ message: 'Invalid username or password.' });
-    }
-
-    // Generate token
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(200).json({ message: 'Login successful.', token });
-  } catch (error) {
-    console.error('Database error:', error);
-    res.status(500).json({ message: 'Error logging in.' });
-  }
-});
-
-// Change Password Endpoint (API Server)
+// ------------------- Change Password Endpoint -------------------
 apiApp.post('/change-password', authenticateToken, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
-  const username = req.user.username;
+  const userId = req.user.id;  // or current username from token if preferred
 
-  // Validate inputs
   if (!oldPassword || !newPassword) {
     return res.status(400).json({ message: 'Old and new passwords are required.' });
   }
 
   try {
-    // Find user
-    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [username]);
+    // Find user by id
+    const [rows] = await promisePool.query('SELECT * FROM users WHERE id = ?', [userId]);
     if (rows.length === 0) {
       return res.status(400).json({ message: 'User not found.' });
     }
-
     const user = rows[0];
 
     // Verify old password
@@ -174,9 +204,8 @@ apiApp.post('/change-password', authenticateToken, async (req, res) => {
     // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update password
-    await promisePool.query('UPDATE users SET password = ? WHERE username = ?', [hashedPassword, username]);
-
+    // Update password in DB
+    await promisePool.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, userId]);
     res.status(200).json({ message: 'Password changed successfully.' });
   } catch (error) {
     console.error('Database error:', error);
@@ -184,76 +213,7 @@ apiApp.post('/change-password', authenticateToken, async (req, res) => {
   }
 });
 
-// Get User Profile Endpoint (API Server)
-apiApp.get('/profile', authenticateToken, async (req, res) => {
-  const username = req.user.username;
-
-  try {
-    const [rows] = await promisePool.query('SELECT business_name, username FROM users WHERE username = ?', [username]);
-    if (rows.length === 0) {
-      return res.status(404).json({ message: 'User not found.' });
-    }
-
-    const user = rows[0];
-    res.status(200).json({ business_name: user.business_name, username: user.username });
-  } catch (error) {
-    console.error('Database error:', error);
-    res.status(500).json({ message: 'Error fetching user profile.' });
-  }
-});
-
-// Update Business Name Endpoint (API Server)
-apiApp.post('/update-business-name', authenticateToken, async (req, res) => {
-  const { newBusinessName } = req.body;
-  const username = req.user.username;
-
-  // Validate input
-  if (!newBusinessName || newBusinessName.trim().length < 3) {
-    return res.status(400).json({ message: 'Business name must be at least 3 characters.' });
-  }
-
-  try {
-    // Update business_name
-    await promisePool.query(
-      'UPDATE users SET business_name = ? WHERE username = ?',
-      [newBusinessName.trim(), username]
-    );
-
-    res.status(200).json({ message: 'Business name updated successfully.' });
-  } catch (error) {
-    console.error('Database error:', error);
-    res.status(500).json({ message: 'Error updating business name.' });
-  }
-});
-
 // Start the API server
 apiApp.listen(API_PORT, () => {
   console.log(`Data service is running on http://localhost:${API_PORT}`);
-});
-
-// Update Username Endpoint (API Server)
-apiApp.post('/update-username', authenticateToken, async (req, res) => {
-  const { newUsername } = req.body;
-  const currentUsername = req.user.username;
-
-  // Validate input
-  if (!newUsername || newUsername.trim().length < 3) {
-    return res.status(400).json({ message: 'Username must be at least 3 characters.' });
-  }
-
-  try {
-    // Optionally check if the new username already exists
-    const [rows] = await promisePool.query('SELECT * FROM users WHERE username = ?', [newUsername]);
-    if (rows.length > 0) {
-      return res.status(400).json({ message: 'Username already taken.' });
-    }
-
-    // Update username in the database
-    await promisePool.query('UPDATE users SET username = ? WHERE username = ?', [newUsername.trim(), currentUsername]);
-
-    res.status(200).json({ message: 'Username updated successfully.' });
-  } catch (error) {
-    console.error('Database error:', error);
-    res.status(500).json({ message: 'Error updating username.' });
-  }
 });
