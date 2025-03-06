@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // ... handle password update similarly ...
-});
+
 
 
   // Handle password update
