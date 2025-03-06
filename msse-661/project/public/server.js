@@ -92,3 +92,22 @@ function authenticateToken(req, res, next) {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// Username update
+
+apiApp.post('/update-username', authenticateToken, async (req, res) => {
+  const { newUsername } = req.body;
+  const username = req.user.username;
+
+  if (!newUsername || newUsername.trim().length < 3) {
+    return res.status(400).json({ message: 'Username must be at least 3 characters.' });
+  }
+
+  try {
+    await promisePool.query('UPDATE users SET username = ? WHERE username = ?', [newUsername.trim(), username]);
+    res.status(200).json({ message: 'Username updated successfully.' });
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ message: 'Error updating username.' });
+  }
+});
