@@ -1,5 +1,14 @@
 // public/js/portal.js
 
+
+// jest.config.js
+module.exports = {
+    testEnvironment: 'jsdom',
+    collectCoverage: true,
+    coverageDirectory: 'coverage',
+  };
+
+  
 // Function to load the user profile (assumes /profile returns { business_name, username })
 async function loadUserProfile() {
     const token = localStorage.getItem('token');
