@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-describe('../js/auth.js', () => {
+describe('auth.js', () => {
     // Save original alert and location properties to restore later.
     const originalAlert = window.alert;
     const originalLocation = window.location;
@@ -35,7 +35,7 @@ describe('../js/auth.js', () => {
       expect(localStorage.getItem('token')).toBeNull();
   
       // Require auth.js so that its DOMContentLoaded listener is registered.
-      require('./auth'); // Adjust the path if needed.
+      require('../js/auth'); 
   
       // Dispatch the DOMContentLoaded event to trigger the listener in auth.js.
       document.dispatchEvent(new Event('DOMContentLoaded'));
@@ -52,7 +52,7 @@ describe('../js/auth.js', () => {
   
       // Reset modules and require auth.js to trigger the listener.
       jest.resetModules();
-      require('./auth');
+      require('../js/auth');
   
       // Dispatch the event.
       document.dispatchEvent(new Event('DOMContentLoaded'));
